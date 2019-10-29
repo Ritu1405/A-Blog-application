@@ -1,0 +1,35 @@
+{% extends "main/header.html" %}
+
+{% block content %} 
+
+
+<div class="row">
+    <div class="col s12 m8, 18">
+        <h3>{{web.title}}</h3>
+        <p>{{web.created_date}}</p>
+        <br>
+        <p>{{web.text}}</p>
+        <h3>Leave a comment:</h3>
+        <form action="{% url 'main:details' web.pk%}" method="POST">
+            {% csrf_token %}
+            <p class="form-group">{{ form.author }}</p>
+            <p class="form-group">{{ form.body }}</p>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <h3>Comments:</h3>
+        {% for comment in comments %}
+            <p>{{ comment.created_on.date}}
+            <b>{{ comment.author }}</b> wrote:</p>
+
+            <p>{{ comment.body }}</p>
+            <hr>
+        {% endfor %}    
+
+    </div>
+                        
+</div>
+
+{% endblock %}
+
+
